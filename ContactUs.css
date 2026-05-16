@@ -1,0 +1,171 @@
+/* ===== Tailwind theme injection + login colour scheme ===== */
+@import "tailwindcss";
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-tertiary: var(--tertiary);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-destructive: var(--destructive);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --font-family-sans: var(--font-sans);
+    --font-family-heading: var(--font-heading);
+}
+
+:root {
+    /* LOGIN COLOUR SCHEME - dark background, red accent (#ef231c) */
+    --background: #0d0d0d;
+    --foreground: #ffffff;
+    --primary: #ef231c;
+    --primary-foreground: #ffffff;
+    --secondary: #1A1A1A;
+    --secondary-foreground: #ffffff;
+    --muted: #1A1A1A;
+    --muted-foreground: #A1A1AA;
+    --border: #2a2a2a;
+    --input: #1A1A1A;
+    --card: #0d0d0d;
+    --radius: 0.5rem;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-heading: "Inter", system-ui, sans-serif;
+}
+
+/* ===== Custom overrides – match login page aesthetics ===== */
+* {
+    border-color: var(--border);
+}
+
+body {
+    background: #0a0a0a;
+}
+
+.login-gradient-bg {
+    background: radial-gradient(circle at 20% 30%, #0f0f0f, #030303);
+}
+
+/* Inputs, textareas */
+input, textarea, .input-fake, .border-input {
+    background-color: #1A1A1A !important;
+    border: 1px solid #2a2a2a !important;
+    color: white !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none !important;
+    border-color: #ef231c !important;
+    box-shadow: 0 0 0 2px rgba(239, 35, 28, 0.25) !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #6b6b6b !important;
+}
+
+/* Primary red button (like login_btn) */
+.btn-primary-red {
+    background-color: #ef231c !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+.btn-primary-red:hover {
+    background-color: #c81e18 !important;
+    transform: translateY(-1px);
+}
+
+/* Outline button (like Google btn from login) */
+.btn-outline-light {
+    background: #1A1A1A !important;
+    border: 1px solid #2F2F2F !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+}
+.btn-outline-light:hover {
+    background: #2a2a2a !important;
+    border-color: #ef231c !important;
+    color: white !important;
+}
+
+/* Cards */
+.card-dark-bg {
+    background-color: #1A1A1A !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 16px !important;
+}
+
+/* FAQ details */
+details {
+    background: #0d0d0d;
+}
+details summary {
+    list-style: none;
+    transition: background 0.2s;
+}
+details summary::-webkit-details-marker {
+    display: none;
+}
+details[open] summary {
+    border-bottom: 1px solid #2a2a2a;
+}
+details:hover summary {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Links */
+.link-red, a.link-red, .text-accent-red {
+    color: #ef231c;
+}
+.link-red:hover, a:hover .icon-hover-red {
+    color: #ff4d47;
+}
+
+/* Map marker */
+.map-marker-red {
+    background-color: #ef231c !important;
+}
+
+/* Focus ring */
+button:focus-visible, a:focus-visible {
+    outline: 2px solid #ef231c;
+    outline-offset: 2px;
+}
+
+/* Upload zone */
+.upload-zone {
+    background-color: #1A1A1A;
+    border: 1px dashed #2a2a2a;
+    transition: all 0.2s;
+}
+.upload-zone:hover {
+    background-color: #222;
+    border-color: #ef231c;
+}
+
+.contact-form-card, .support-card, .faq-container, .location-card {
+    border-radius: 16px;
+}
+
+/* Header glass effect */
+.glass-header {
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #2a2a2a;
+}
