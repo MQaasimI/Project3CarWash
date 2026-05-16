@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeWash | Premium Contact & Support</title>
+    <!-- Google Fonts + Iconify + Tailwind + Chart.js (keeping original libs for compatibility) -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&family=Fira+Code:wght@300..700&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+    <style type="text/tailwindcss">
+        /* Tailwind theme injection - login colour scheme override */
+        @import "tailwindcss";
+        @theme inline {
+            --color-background: var(--background);
+            --color-foreground: var(--foreground);
+            --color-primary: var(--primary);
+            --color-primary-foreground: var(--primary-foreground);
+            --color-secondary: var(--secondary);
+            --color-secondary-foreground: var(--secondary-foreground);
+            --color-tertiary: var(--tertiary);
+            --color-muted: var(--muted);
+            --color-muted-foreground: var(--muted-foreground);
+            --color-accent: var(--accent);
+            --color-destructive: var(--destructive);
+            --color-card: var(--card);
+            --color-card-foreground: var(--card-foreground);
+            --color-border: var(--border);
+            --color-input: var(--input);
+            --color-ring: var(--ring);
+            --radius-sm: calc(var(--radius) - 4px);
+            --radius-md: calc(var(--radius) - 2px);
+            --radius-lg: var(--radius);
+            --font-family-sans: var(--font-sans);
+            --font-family-heading: var(--font-heading);
+        }
+        :root {
+            /* LOGIN COLOUR SCHEME - dark background, red accent (#ef231c) */
+            --background: #0d0d0d;
+            --foreground: #ffffff;
+            --primary: #ef231c;
+            --primary-foreground: #ffffff;
+            --secondary: #1A1A1A;
+            --secondary-foreground: #ffffff;
+            --muted: #1A1A1A;
+            --muted-foreground: #A1A1AA;
+            --border: #2a2a2a;
+            --input: #1A1A1A;
+            --card: #0d0d0d;
+            --radius: 0.5rem;      /* subtle rounded corners like login card (16px -> 8px for modern consistency) */
+            --font-sans: "Inter", system-ui, sans-serif;
+            --font-heading: "Inter", system-ui, sans-serif;
+        }
+    </style>
+    <!-- Additional custom overrides to enforce login visual aesthetic (buttons, inputs, cards, hover effects) -->
+    <style>
+        /* GLOBAL RESET / DEEP THEME EXTENSION */
+        * {
+            border-color: var(--border);
+        }
+
+        body {
+            background: #0a0a0a;
+        }
+
+        /* main background with dark gradient overlay (like login page but without external image - subtle luxury dark) */
+        .login-gradient-bg {
+            background: radial-gradient(circle at 20% 30%, #0f0f0f, #030303);
+        }
+
+        /* Override default button, input, card styling to match login page exactly */
+        input, textarea, .input-fake, .border-input {
+            background-color: #1A1A1A !important;
+            border: 1px solid #2a2a2a !important;
+            color: white !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none !important;
+            border-color: #ef231c !important;
+            box-shadow: 0 0 0 2px rgba(239, 35, 28, 0.25) !important;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #6b6b6b !important;
+        }
+
+        /* primary red button style (login_btn style) */
+        .btn-primary-red {
+            background-color: #ef231c !important;
+            border: none !important;
+            border-radius: 8px !important;
+            color: white !important;
+            font-weight: 700 !important;
+            transition: all 0.2s ease !important;
+            box-shadow: none !important;
+        }
+        .btn-primary-red:hover {
+            background-color: #c81e18 !important;
+            transform: translateY(-1px);
+        }
+
+        /* secondary / outline button (like google button style from login) */
+        .btn-outline-light {
+            background: #1A1A1A !important;
+            border: 1px solid #2F2F2F !important;
+            color: #ffffff !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease;
+        }
+        .btn-outline-light:hover {
+            background: #2a2a2a !important;
+            border-color: #ef231c !important;
+            color: white !important;
+        }
+
+        /* Cards and support container -> background #1A1A1A, border 2a2a2a */
+        .card-dark-bg {
+            background-color: #1A1A1A !important;
+            border: 1px solid #2a2a2a !important;
+            border-radius: 16px !important;
+        }
+
+        /* FAQ details styling */
+        details {
+            background: #0d0d0d;
+        }
+        details summary {
+            list-style: none;
+            transition: background 0.2s;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary {
+            border-bottom: 1px solid #2a2a2a;
+        }
+        details:hover summary {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* link red accent */
+        .link-red, a.link-red, .text-accent-red {
+            color: #ef231c;
+        }
+        .link-red:hover, a:hover .icon-hover-red {
+            color: #ff4d47;
+        }
+
+        /* Map marker & location card align with theme */
+        .map-marker-red {
+            background-color: #ef231c !important;
+        }
+
+        /* hide default focus ring for some elements but keep accessibility */
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid #ef231c;
+            outline-offset: 2px;
+        }
+
+        /* upload zone */
+        .upload-zone {
+            background-color: #1A1A1A;
+            border: 1px dashed #2a2a2a;
+            transition: all 0.2s;
+        }
+        .upload-zone:hover {
+            background-color: #222;
+            border-color: #ef231c;
+        }
+
+        /* fix border radius for all major containers */
+        .contact-form-card, .support-card, .faq-container, .location-card {
+            border-radius: 16px;
+        }
+
+        /* ensure header/blur effect with dark theme */
+        .glass-header {
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a2a;
+        }
+    </style>
+</head>
+<body class="login-gradient-bg font-sans antialiased">
+    <div class="min-h-screen w-full text-foreground flex flex-col relative">
+        <!-- Header - updated to dark/glassmorphism with red active state -->
+        <header class="w-full border-b border-border sticky top-0 z-40 glass-header">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-foreground font-bold text-xl uppercase tracking-widest">
+                    <iconify-icon class="text-2xl text-primary" icon="lucide:sparkles"></iconify-icon>
+                    <span>Car<span class="text-primary">Wash</span></span>
+                </div>
+                <div class="hidden md:flex items-center gap-6 text-xs font-bold uppercase tracking-wider">
+                    <a class="text-muted-foreground hover:text-foreground transition-colors" href="#">Services</a>
+                    <a class="text-muted-foreground hover:text-foreground transition-colors" href="#">Locations</a>
+                    <a class="text-primary border-b-2 border-primary transition-colors" href="#">Contact</a>
+                </div>
+                <button class="md:hidden text-2xl text-foreground">
+                    <iconify-icon icon="lucide:menu"></iconify-icon>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-28 lg:pb-12">
+            <!-- Left Column: Lead Form & FAQ (login color integration) -->
+            <div class="lg:col-span-8 flex flex-col">
+                <div class="mb-10">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 uppercase tracking-tighter text-white">Get in Touch</h1>
+                    <p class="text-muted-foreground text-lg max-w-2xl">Whether you're an individual owner, a fleet manager, or an enterprise partner, our support team is ready to assist with your premium detailing needs.</p>
+                </div>
+
+                <!-- Lead Form (styled with login inputs/red button) -->
+                <form class="flex flex-col gap-8 w-full">
+                    <!-- Service Type (Search) -->
+                    <div class="flex flex-col gap-2 relative">
+                        <label class="font-black text-xs uppercase tracking-widest text-foreground">Service Type</label>
+                        <div class="relative group">
+                            <input class="w-full bg-input border border-border rounded-lg px-4 py-4 text-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground" placeholder="Search services (e.g., Ceramic Coating, Fleet Wash)..." type="text">
+                            <iconify-icon class="absolute right-4 top-4.5 text-muted-foreground group-focus-within:text-primary transition-colors" icon="lucide:search"></iconify-icon>
+                        </div>
+                    </div>
+
+                    <!-- Name & Email Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-black text-xs uppercase tracking-widest text-foreground">Full Name</label>
+                            <input class="w-full bg-input border border-border rounded-lg px-4 py-4 text-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground" placeholder="John Doe" type="text">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-black text-xs uppercase tracking-widest text-foreground">Email Address</label>
+                            <div class="relative">
+                                <input class="w-full bg-input border border-border rounded-lg px-4 py-4 text-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground pr-10" placeholder="john@example.com" type="email">
+                                <iconify-icon class="absolute right-4 top-4.5 text-primary hidden" icon="lucide:check-circle-2"></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-xs uppercase tracking-widest text-foreground">Message</label>
+                        <textarea class="w-full bg-input border border-border rounded-lg px-4 py-4 text-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground resize-none" placeholder="Describe your vehicle's condition or specific requirements..." rows="4"></textarea>
+                    </div>
+
+                    <!-- Photo Upload Zone (login-inspired) -->
+                    <div class="flex flex-col gap-2">
+                        <label class="font-black text-xs uppercase tracking-widest text-foreground">Attach Photos (Optional)</label>
+                        <div class="upload-zone border border-dashed border-border rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer group">
+                            <div class="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-background transition-colors">
+                                <iconify-icon class="text-2xl text-muted-foreground group-hover:text-white transition-colors" icon="lucide:image-plus"></iconify-icon>
+                            </div>
+                            <span class="font-bold text-foreground mb-1 uppercase text-sm tracking-wide">Click to upload or drag and drop</span>
+                            <span class="text-xs text-muted-foreground">SVG, PNG, JPG or GIF (max. 10MB)</span>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button: red primary as login_btn style -->
+                    <div class="mt-2">
+                        <button class="btn-primary-red w-full md:w-auto px-10 py-5 font-black text-xs uppercase tracking-[0.2em] shadow-none flex items-center justify-center gap-3 transition-all" type="button">
+                            <span>Send Message</span>
+                            <iconify-icon class="text-lg" icon="lucide:send"></iconify-icon>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- FAQ Accordion Section (login dark theme) -->
+                <div class="mt-20 border-t border-border pt-16">
+                    <h2 class="text-3xl font-heading font-black mb-8 uppercase tracking-tight text-white">Frequently Asked Questions</h2>
+                    <div class="flex flex-col gap-0 border-t border-border">
+                        <details class="group border-b border-border overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                            <summary class="flex items-center justify-between px-2 py-6 cursor-pointer font-bold select-none text-foreground hover:bg-[#1A1A1A] transition-colors min-h-[44px]">
+                                <span class="uppercase text-sm tracking-wide">What is included in the Enterprise Fleet package?</span>
+                                <iconify-icon class="text-xl text-primary group-open:hidden" icon="lucide:plus"></iconify-icon>
+                                <iconify-icon class="text-xl text-primary hidden group-open:block" icon="lucide:minus"></iconify-icon>
+                            </summary>
+                            <div class="px-2 pb-6 pt-0 text-muted-foreground leading-relaxed text-sm max-w-2xl">
+                                Our Enterprise Fleet package includes priority scheduling, dedicated account management, bi-weekly deep cleaning, and monthly ceramic coat maintenance for fleets of 10 or more vehicles.
+                            </div>
+                        </details>
+                        <details class="group border-b border-border overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                            <summary class="flex items-center justify-between px-2 py-6 cursor-pointer font-bold select-none text-foreground hover:bg-[#1A1A1A] transition-colors min-h-[44px]">
+                                <span class="uppercase text-sm tracking-wide">How long does a premium ceramic coating take?</span>
+                                <iconify-icon class="text-xl text-primary group-open:hidden" icon="lucide:plus"></iconify-icon>
+                                <iconify-icon class="text-xl text-primary hidden group-open:block" icon="lucide:minus"></iconify-icon>
+                            </summary>
+                            <div class="px-2 pb-6 pt-0 text-muted-foreground leading-relaxed text-sm max-w-2xl">
+                                A standard premium ceramic coating application requires 24 to 48 hours. This includes thorough paint correction, application, and the necessary curing time in our climate-controlled facility.
+                            </div>
+                        </details>
+                        <details class="group border-b border-border overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                            <summary class="flex items-center justify-between px-2 py-6 cursor-pointer font-bold select-none text-foreground hover:bg-[#1A1A1A] transition-colors min-h-[44px]">
+                                <span class="uppercase text-sm tracking-wide">Do you offer mobile detailing services?</span>
+                                <iconify-icon class="text-xl text-primary group-open:hidden" icon="lucide:plus"></iconify-icon>
+                                <iconify-icon class="text-xl text-primary hidden group-open:block" icon="lucide:minus"></iconify-icon>
+                            </summary>
+                            <div class="px-2 pb-6 pt-0 text-muted-foreground leading-relaxed text-sm max-w-2xl">
+                                Yes, we offer premium mobile detailing for individual owners and smaller fleets within a 25-mile radius of our HQ. A mobile service fee may apply.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Support Card (login card styling: #1A1A1A background, border 2a2a2a) -->
+            <div class="lg:col-span-4">
+                <div class="card-dark-bg p-8 md:p-10 shadow-none sticky top-24 flex flex-col gap-10 transition-all">
+                    <div>
+                        <h3 class="text-2xl font-heading font-black mb-3 uppercase tracking-tight text-white">Quick Support</h3>
+                        <p class="text-sm text-muted-foreground leading-relaxed">Need immediate assistance? Reach out directly to our concierge team.</p>
+                    </div>
+                    <!-- Contact Methods -->
+                    <div class="flex flex-col gap-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-lg border border-border flex items-center justify-center shrink-0 bg-black/20">
+                                <iconify-icon class="text-primary text-xl" icon="lucide:phone-call"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-black text-foreground text-xs uppercase tracking-widest mb-1">Direct Line</p>
+                                <a class="text-sm text-muted-foreground hover:text-primary transition-colors" href="tel:+18005550199">+1 (800) 555-0199</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-lg border border-border flex items-center justify-center shrink-0 bg-black/20">
+                                <iconify-icon class="text-primary text-xl" icon="lucide:mail"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-black text-foreground text-xs uppercase tracking-widest mb-1">Email Support</p>
+                                <a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="mailto:concierge@luxewash.com">concierge@luxewash.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-lg border border-border flex items-center justify-center shrink-0 bg-black/20">
+                                <iconify-icon class="text-primary text-xl" icon="lucide:clock"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-black text-foreground text-xs uppercase tracking-widest mb-1">Operating Hours</p>
+                                <p class="text-muted-foreground text-xs uppercase tracking-wider mb-1">Mon - Fri: 8:00 AM - 7:00 PM</p>
+                                <p class="text-muted-foreground text-xs uppercase tracking-wider">Sat - Sun: 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-8 border-t border-border">
+                        <button class="btn-outline-light w-full py-4 font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 min-h-[44px]">
+                            <iconify-icon icon="lucide:message-square" class="text-primary"></iconify-icon>
+                            <span>Start Live Chat</span>
+                        </button>
+                        <p class="text-[10px] text-center text-muted-foreground uppercase tracking-widest mt-4">Response time: <span class="text-primary font-black">Under 2 mins</span></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mapbox-inspired Footer / Location (login color scheme) -->
+        <div class="w-full h-96 bg-[#0a0a0a] relative border-t border-border overflow-hidden flex items-center justify-center mt-auto">
+            <!-- Simulated Map Background (monochrome with red overlay) -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=2074&ixlib=rb-4.0.3')] bg-cover bg-center grayscale opacity-15"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+            <!-- Custom Map Marker (red accent marker) -->
+            <div class="relative z-10 flex flex-col items-center">
+                <div class="card-dark-bg px-8 py-5 mb-6 flex flex-col items-center text-center shadow-lg">
+                    <span class="font-black text-xs uppercase tracking-[0.2em] text-primary mb-2">The Car Wash HQ</span>
+                    <span class="text-xs text-muted-foreground uppercase tracking-widest">12 Herald Street, Ottery</span>
+                    <a class="text-primary text-[10px] font-black uppercase tracking-widest mt-3 border-b border-primary hover:text-white transition" href="#">Get Directions</a>
+                </div>
+                <div class="w-14 h-14 map-marker-red rounded-lg flex items-center justify-center shadow-lg relative">
+                    <iconify-icon class="text-white text-2xl relative z-10" icon="lucide:map-pin"></iconify-icon>
+                    <div class="absolute inset-0 bg-primary opacity-30 scale-125 rounded-full blur-sm"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Sticky Bottom Action Bar (dark theme + red accent) -->
+        <div class="fixed bottom-0 left-0 right-0 lg:hidden bg-[#0d0d0d] border-t border-primary p-4 flex gap-4 z-50">
+            <a class="flex-1 bg-background text-foreground border border-primary rounded-lg font-black text-xs uppercase tracking-widest py-4 min-h-[44px] flex items-center justify-center gap-2 active:bg-primary active:text-white transition-all" href="tel:+18005550199">
+                <iconify-icon class="text-lg text-primary" icon="lucide:phone"></iconify-icon>
+                <span>Call</span>
+            </a>
+            <a class="flex-1 bg-primary text-white border border-primary rounded-lg font-black text-xs uppercase tracking-widest py-4 min-h-[44px] flex items-center justify-center gap-2 active:bg-red-700 transition-all" href="#">
+                <iconify-icon class="text-lg" icon="lucide:message-circle"></iconify-icon>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
