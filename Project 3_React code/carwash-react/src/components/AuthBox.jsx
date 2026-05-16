@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { FaArrowLeft, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,8 @@ function AuthBox({
   bottomText,
   bottomLink,
   linkPath,
-  showGoogle = true
+  showGoogle = true,
+  onButtonClick
 }) {
   return (
     <section className="log">
@@ -20,7 +20,9 @@ function AuthBox({
         <div className="log_bar">
 
           <div className="logo_section">
-            <div className="logo_circle">Logo</div>
+            <div className="logo_circle">
+              Logo
+            </div>
 
             <span className="logo_text">
               Car<span className="wash">Wash</span>
@@ -35,21 +37,26 @@ function AuthBox({
         </div>
       </div>
 
-      {/* Middle Form Section */}
+      {/* Middle Section */}
       <div className="login_middle">
         <div className="login_box">
 
+          {/* Heading */}
           <h1>{title}</h1>
 
+          {/* Subheading */}
           <p className="subheading">
             {subtitle}
           </p>
 
-          {/* Dynamic form fields */}
+          {/* Dynamic Inputs */}
           {children}
 
           {/* Main Button */}
-          <button className="login_btn">
+          <button 
+            className="login_btn"
+            onClick={onButtonClick}
+          >
             {buttonText}
           </button>
 
@@ -69,7 +76,7 @@ function AuthBox({
             </>
           )}
 
-          {/* Bottom Link */}
+          {/* Bottom Redirect Text */}
           <p className="signup_text">
             {bottomText}{" "}
             <Link to={linkPath}>
