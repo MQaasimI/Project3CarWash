@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SMARTWASH - Reviews</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#f7f7f7;
+    color:#111;
+}
+
+/* MAIN LAYOUT */
+
+.container{
+    display:flex;
+    width:100%;
+    height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#ffffff;
+    border-right:1px solid #e9e9e9;
+    padding:24px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:40px;
+}
+
+.logo-box{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#14aaf5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo-box::after{
+    content:"";
+    width:14px;
+    height:14px;
+    border:2px solid white;
+    border-radius:3px;
+}
+
+.logo h2{
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:0.5px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu-item{
+    height:44px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:0 16px;
+    color:#222;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.menu-item:hover{
+    background:#f1f7fb;
+}
+
+.menu-item.active{
+    background:#14aaf5;
+    color:white;
+    box-shadow:0 8px 18px rgba(20,170,245,0.3);
+}
+
+.menu-icon{
+    width:18px;
+    height:18px;
+    border:1.8px solid currentColor;
+}
+
+.membership-card{
+    background:#eef5fa;
+    border-radius:20px;
+    padding:18px;
+}
+
+.membership-card h4{
+    font-size:12px;
+    font-weight:500;
+    margin-bottom:10px;
+    color:#444;
+}
+
+.membership-card h3{
+    font-size:20px;
+    color:#0d9de5;
+    font-style:italic;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+.progress{
+    width:100%;
+    height:8px;
+    background:#d6e2ea;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.progress-bar{
+    width:78%;
+    height:100%;
+    background:#14aaf5;
+}
+
+.membership-card p{
+    font-size:11px;
+    color:#666;
+}
+
+/* CONTENT */
+
+.content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+    height:72px;
+    background:white;
+    border-bottom:1px solid #ececec;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.search{
+    width:500px;
+    height:42px;
+    border:1px solid #e5e5e5;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:0 16px;
+    color:#777;
+    font-size:14px;
+}
+
+.search-box{
+    width:14px;
+    height:14px;
+    border:1.5px solid #777;
+}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.notification{
+    width:20px;
+    height:20px;
+    border:2px solid #222;
+}
+
+.user{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.user-text h4{
+    font-size:14px;
+    font-weight:700;
+}
+
+.user-text p{
+    font-size:11px;
+    letter-spacing:1px;
+    color:#777;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:3px solid #d9edf9;
+    position:relative;
+}
+
+.avatar::after{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:2px solid #111;
+    border-radius:50%;
+}
+
+/* PAGE */
+
+.page{
+    padding:34px 42px;
+    overflow-y:auto;
+}
+
+.page-title{
+    font-size:52px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.page-subtitle{
+    color:#555;
+    font-size:20px;
+    margin-bottom:34px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+    margin-bottom:34px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid #ececec;
+    border-radius:34px;
+    padding:34px;
+}
+
+.stat-card h5{
+    font-size:15px;
+    letter-spacing:1px;
+    margin-bottom:16px;
+    color:#333;
+}
+
+.stat-number{
+    font-size:56px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.blue-text{
+    color:#14aaf5;
+    font-size:18px;
+    font-weight:600;
+}
+
+.line{
+    width:180px;
+    height:5px;
+    background:#14aaf5;
+    border-radius:20px;
+    margin-top:26px;
+}
+
+.rating-bars{
+    display:flex;
+    gap:6px;
+}
+
+.rating-bars span{
+    width:24px;
+    height:24px;
+    background:#14aaf5;
+}
+
+.rating-bars span:last-child{
+    opacity:0.3;
+}
+
+.small-text{
+    margin-top:16px;
+    color:#666;
+    font-size:15px;
+}
+
+.service-title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+/* MAIN SECTION */
+
+.main-section{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:34px;
+}
+
+/* REVIEW FORM */
+
+.review-form{
+    background:white;
+    border-radius:36px;
+    padding:40px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.05);
+}
+
+.review-form h2{
+    font-size:44px;
+    margin-bottom:34px;
+    font-weight:800;
+}
+
+.label{
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+.select-box,
+.textarea{
+    width:100%;
+    border:1px solid #e8e8e8;
+    border-radius:18px;
+    padding:18px 20px;
+    margin-bottom:26px;
+    font-size:15px;
+    color:#444;
+}
+
+.rating{
+    display:flex;
+    gap:14px;
+    margin-bottom:30px;
+}
+
+.rating .star{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    background:#14aaf5;
+    box-shadow:0 8px 20px rgba(20,170,245,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.rating .star:last-child{
+    background:white;
+    border:2px solid #222;
+    box-shadow:none;
+}
+
+.star::after{
+    content:"";
+    width:18px;
+    height:18px;
+    border:2px solid white;
+}
+
+.rating .star:last-child::after{
+    border-color:#222;
+}
+
+.textarea{
+    height:120px;
+    resize:none;
+}
+
+.upload{
+    width:100%;
+    height:170px;
+    border:2px dashed #e2e2e2;
+    border-radius:26px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:34px;
+}
+
+.upload-icon{
+    width:34px;
+    height:34px;
+    border:2px solid #222;
+    margin-bottom:16px;
+}
+
+.upload h4{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.upload p{
+    color:#777;
+    font-size:14px;
+}
+
+.submit-btn{
+    width:100%;
+    height:72px;
+    border:none;
+    border-radius:24px;
+    background:#14aaf5;
+    color:white;
+    font-size:24px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(20,170,245,0.35);
+}
+
+/* REVIEWS */
+
+.reviews-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:26px;
+}
+
+.reviews-header h2{
+    font-size:46px;
+    font-weight:800;
+}
+
+.sort{
+    width:170px;
+    height:50px;
+    background:white;
+    border:1px solid #ececec;
+    border-radius:16px;
+    padding:0 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:15px;
+}
+
+.review-card{
+    background:white;
+    border:1px solid #ececec;
+    border-radius:36px;
+    padding:34px;
+    margin-bottom:26px;
+}
+
+.review-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.review-top h3{
+    font-size:24px;
+    font-weight:800;
+}
+
+.badge{
+    padding:8px 16px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.published{
+    background:#e8fbef;
+    color:#22b55b;
+}
+
+.pending{
+    background:#fff4df;
+    color:#f2a523;
+}
+
+.mini-rating{
+    display:flex;
+    gap:4px;
+    margin-bottom:14px;
+}
+
+.mini-rating span{
+    width:18px;
+    height:18px;
+    background:#14aaf5;
+}
+
+.mini-rating span:last-child{
+    opacity:0.3;
+}
+
+.review-date{
+    font-size:14px;
+    color:#666;
+    margin-bottom:20px;
+}
+
+.review-text{
+    color:#555;
+    font-size:18px;
+    line-height:1.8;
+    max-width:90%;
+}
+
+.review-actions{
+    display:flex;
+    gap:18px;
+    margin-top:30px;
+}
+
+.action-btn{
+    width:92px;
+    height:92px;
+    border:2px solid #222;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.action-btn::after{
+    content:"";
+    width:24px;
+    height:24px;
+    border:2px solid #222;
+}
+
+.load-more{
+    width:100%;
+    height:74px;
+    border-radius:24px;
+    background:white;
+    border:3px solid #222;
+    font-size:22px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div>
+
+            <div class="logo">
+                <div class="logo-box"></div>
+                <h2>SMARTWASH</h2>
+            </div>
+
+            <div class="menu">
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Dashboard
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Bookings
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Payments
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Vehicles
+                </div>
+
+                <div class="menu-item active">
+                    <div class="menu-icon"></div>
+                    Reviews
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Support
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-icon"></div>
+                    Settings
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="membership-card">
+
+            <h4>Membership Tier</h4>
+            <h3>ELITE MEMBER</h3>
+
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+
+            <p>250 points to your next free wash</p>
+
+        </div>
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div class="search">
+                <div class="search-box"></div>
+                Search services, bookings... ⌘K
+            </div>
+
+            <div class="user-area">
+
+                <div class="notification"></div>
+
+                <div class="user">
+
+                    <div class="user-text">
+                        <h4>Alexander Pierce</h4>
+                        <p>ELITE MEMBER</p>
+                    </div>
+
+                    <div class="avatar"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PAGE -->
+
+        <div class="page">
+
+            <h1 class="page-title">My Reviews</h1>
+            <p class="page-subtitle">
+                Manage and share feedback about your car wash experiences.
+            </p>
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <h5>TOTAL REVIEWS</h5>
+
+                    <div class="stat-number">
+                        24
+                        <span class="blue-text">+2 this month</span>
+                    </div>
+
+                    <div class="line"></div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h5>AVERAGE RATING</h5>
+
+                    <div class="stat-number">
+
+                        4.8
+
+                        <div class="rating-bars">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="small-text">
+                        Top 5% of reviewers
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h5>MOST REVIEWED</h5>
+
+                    <div class="service-title">
+                        Ceramic Pro Coating
+                    </div>
+
+                    <div class="small-text">
+                        8 reviews submitted for this service
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- MAIN -->
+
+            <div class="main-section">
+
+                <!-- FORM -->
+
+                <div class="review-form">
+
+                    <h2>Write a Review</h2>
+
+                    <div class="label">Select Service</div>
+
+                    <div class="select-box">
+                        Premium Exterior Wash - March 12, 2024✓
+                    </div>
+
+                    <div class="label">Your Rating</div>
+
+                    <div class="rating">
+
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+
+                    </div>
+
+                    <div class="label">Your Feedback</div>
+
+                    <textarea class="textarea">Describe your experience...</textarea>
+
+                    <div class="label">Add Photos (Optional)</div>
+
+                    <div class="upload">
+
+                        <div class="upload-icon"></div>
+
+                        <h4>Click to upload or drag and drop</h4>
+
+                        <p>PNG, JPG up to 10MB</p>
+
+                    </div>
+
+                    <button class="submit-btn">
+                        Submit Review
+                    </button>
+
+                </div>
+
+                <!-- REVIEWS -->
+
+                <div>
+
+                    <div class="reviews-header">
+
+                        <h2>My Previous Reviews</h2>
+
+                        <div class="sort">
+                            Sort by:
+                            Most Recent
+                        </div>
+
+                    </div>
+
+                    <!-- REVIEW 1 -->
+
+                    <div class="review-card">
+
+                        <div class="review-top">
+
+                            <div>
+
+                                <h3>
+                                    Premium Exterior Wash
+                                    <span class="badge published">
+                                        PUBLISHED
+                                    </span>
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mini-rating">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="review-date">
+                            Submitted on March 15, 2024
+                        </div>
+
+                        <div class="review-text">
+                            Absolutely fantastic service! My car looks better than the day I bought it. The ceramic sealant they used really makes the metallic paint pop. Staff was professional and the wait time was exactly as estimated.
+                        </div>
+
+                        <div class="review-actions">
+
+                            <div class="action-btn"></div>
+                            <div class="action-btn"></div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- REVIEW 2 -->
+
+                    <div class="review-card">
+
+                        <div class="review-top">
+
+                            <h3>
+                                Interior Detail
+                                <span class="badge pending">
+                                    PENDING APPROVAL
+                                </span>
+                            </h3>
+
+                        </div>
+
+                        <div class="mini-rating">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="review-date">
+                            Submitted on Feb 29, 2024
+                        </div>
+
+                        <div class="review-text">
+                            Great job on the leather seats. They managed to get out a coffee stain that had been there for months. Only reason for 4 stars is that they missed a small spot in the cup holder, but overall very satisfied.
+                        </div>
+
+                    </div>
+
+                    <button class="load-more">
+                        Load More Reviews
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
